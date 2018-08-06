@@ -14,12 +14,12 @@ __char_list = establish_char_dict.CharDictBuilder.read_char_dict(char_dict_path)
 __ord_map = establish_char_dict.CharDictBuilder.read_ord_map_dict(ord_map_dict_path)\
 
 
-def char_list(self):
+def char_list():
     """
 
     :return:
     """
-    return self.__char_list
+    return __char_list
 
 
 def int64_feature(value):
@@ -27,7 +27,7 @@ def int64_feature(value):
         Wrapper for inserting int64 features into Example proto.
     """
     if not isinstance(value, list):
-        value = [value]
+        value= [value]
     value_tmp = []
     is_int = True
     for val in value:
@@ -70,7 +70,7 @@ def bytes_feature(value):
     return tf.train.Feature(bytes_list=tf.train.BytesList(value=value))
 
 
-def char_to_int(self, char):
+def char_to_int(char):
     """
 
     :param char:
@@ -81,7 +81,7 @@ def char_to_int(self, char):
     if 65 <= temp <= 90:
         temp = temp + 32
 
-    for k, v in self.__ord_map.items():
+    for k, v in __ord_map.items():
         if v == str(temp):
             temp = int(k)
             return temp
@@ -91,7 +91,7 @@ def char_to_int(self, char):
     # Here implement a double way dict or two dict to quickly map ord and it's corresponding index
 
 
-def int_to_char(self, number):
+def int_to_char(number):
     """
 
     :param number:
@@ -102,10 +102,10 @@ def int_to_char(self, number):
     if number == 1:
         return '*'
     else:
-        return self.__char_list[str(number)]
+        return __char_list[str(number)]
 
 
-def encode_labels(self, labels):
+def encode_labels(labels):
     """
         encode the labels for ctc loss
     :param labels:
@@ -114,20 +114,20 @@ def encode_labels(self, labels):
     encoded_labeles = []
     lengths = []
     for label in labels:
-        encode_label = [self.char_to_int(char) for char in label]
+        encode_label = [char_to_int(char) for char in label]
         encoded_labeles.append(encode_label)
         lengths.append(len(label))
     return encoded_labeles, lengths
 
 
-def sparse_tensor_to_str(self, spares_tensor: tf.SparseTensor):
+def sparse_tensor_to_str(spares_tensor: tf.SparseTensor):
     """
     :param spares_tensor:
     :return: a str
     """
     indices = spares_tensor.indices
     values = spares_tensor.values
-    values = np.array([self.__ord_map[str(tmp)] for tmp in values])
+    values = np.array([__ord_map[str(tmp)] for tmp in values])
     dense_shape = spares_tensor.dense_shape
 
     number_lists = np.ones(dense_shape, dtype=values.dtype)
@@ -136,7 +136,7 @@ def sparse_tensor_to_str(self, spares_tensor: tf.SparseTensor):
     for i, index in enumerate(indices):
         number_lists[index[0], index[1]] = values[i]
     for number_list in number_lists:
-        str_lists.append([self.int_to_char(val) for val in number_list])
+        str_lists.append([int_to_char(val) for val in number_list])
     for str_list in str_lists:
         res.append(''.join(c for c in str_list if c != '*'))
     return res
@@ -156,7 +156,7 @@ def main():
         dictionary = np.array([tmp.strip().split() for tmp in lex_file.readlines()])
 
     for mode in modes:
-        test_tfrecord_path = ops.join(args.out, '{}_features.tfrecords'.format(mode))
+        test_tfrecord_path = ops.join(args.out, '{}_feature.tfrecords'.format(mode))
         loadandexport(args.root, 'annotation_{}.txt'.format(mode), test_tfrecord_path, dictionary)
 
 
@@ -173,8 +173,10 @@ def loadandexport(root, name, out, dictionary):
             if image is not None:
                 image_org = cv2.resize(image, (100, 32))
                 filename = ops.basename(entry[0])
+                label = dictionary[int(entry[1])][0]
+                label_encoded = [char_to_int(char) for char in label]
                 features = tf.train.Features(feature={
-                    'labels': int64_feature(int(entry[1])),
+                    'labels': int64_feature(label_encoded),
                     'images': bytes_feature(bytes(list(np.reshape(image_org, [100 * 32 * 3])))),
                     'imagenames': bytes_feature(filename)
                 })
