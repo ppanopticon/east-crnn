@@ -6,6 +6,7 @@ import cv2
 import tensorflow as tf
 import sys
 
+from unidecode import unidecode
 from local_utils import establish_char_dict
 
 char_dict_path=ops.join(os.getcwd(), 'data/char_dict/char_dict.json')
@@ -151,9 +152,11 @@ def main():
     parser.add_argument('--out', type=str)
     args = parser.parse_args()
     modes = ['train', 'test', 'val']
-
-    with open(ops.join(args.root, 'lexicon.txt'), 'r') as lex_file:
-        dictionary = np.array([tmp.strip().split() for tmp in lex_file.readlines()])
+    dict_file = ops.join(args.root, 'lexicon.txt')
+    dictionary = None
+    if ops.exists(dict_file):
+        with open(dict_file, 'r') as lex_file:
+            dictionary = np.array([tmp.strip().split() for tmp in lex_file.readlines()])
 
     for mode in modes:
         test_tfrecord_path = ops.join(args.out, '{}_feature.tfrecords'.format(mode))
@@ -163,7 +166,7 @@ def main():
 #
 #
 #
-def loadandexport(root, name, out, dictionary):
+def loadandexport(root, name, out, dictionary=None):
     with open(ops.join(root, name), 'r') as data, tf.python_io.TFRecordWriter(out) as writer:
         info = np.array([tmp.strip().split() for tmp in data.readlines()])
         index = 0
@@ -173,7 +176,10 @@ def loadandexport(root, name, out, dictionary):
             if image is not None:
                 image_org = cv2.resize(image, (100, 32))
                 filename = ops.basename(entry[0])
-                label = dictionary[int(entry[1])][0]
+                if dictionary is None:
+                    label = unidecode(dictionary[int(entry[1])][0])
+                else:
+                    label = unidecode(entry[1])
                 label_encoded = [char_to_int(char) for char in label]
                 features = tf.train.Features(feature={
                     'labels': int64_feature(label_encoded),
