@@ -23,7 +23,7 @@ class FeatureIO(object):
     """
     def __init__(self, char_dict_path=ops.join(os.getcwd(), 'data/char_dict/char_dict.json'),
                  ord_map_dict_path=ops.join(os.getcwd(), 'data/char_dict/ord_map.json')):
-        self.__char_list = establish_char_dict.CharDictBuilder.read_char_dict(char_dict_path)
+        self.__char_dict = establish_char_dict.CharDictBuilder.read_char_dict(char_dict_path)
         self.__ord_map = establish_char_dict.CharDictBuilder.read_ord_map_dict(ord_map_dict_path)
         return
 
@@ -33,7 +33,7 @@ class FeatureIO(object):
 
         :return:
         """
-        return self.__char_list
+        return self.__char_dict
 
     @staticmethod
     def int64_feature(value):
@@ -115,7 +115,7 @@ class FeatureIO(object):
         if number == 1:
             return '*'
         else:
-            return self.__char_list[str(number)]
+            return self.__char_dict[str(number)]
 
     def encode_labels(self, labels):
         """
