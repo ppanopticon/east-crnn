@@ -176,7 +176,7 @@ def loadandexport(root, name, out, dictionary=None):
             if image is not None:
                 image_org = cv2.resize(image, (100, 32))
                 filename = ops.basename(entry[0])
-                if dictionary is None:
+                if dictionary is not None:
                     label = unidecode(dictionary[int(entry[1])][0])
                 else:
                     label = unidecode(entry[1])
