@@ -28,7 +28,7 @@ class FeatureIO(object):
         return
 
     @property
-    def char_list(self):
+    def char_dict(self):
         """
 
         :return:
