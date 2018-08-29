@@ -171,6 +171,9 @@ def loadandexport(root, name, out, dictionary=None):
     with open(ops.join(root, name), 'r') as data, tf.python_io.TFRecordWriter(out) as writer:
         info = np.array([tmp.strip().split() for tmp in data.readlines()])
         index = 0
+
+        sys.stdout.write('>>Writing TFRecords for parameters: (l: {}, w: {}, h: {})\n'.format(config.ARCH.SEQ_LENGTH,config.ARCH.INPUT_SIZE[0], config.ARCH.INPUT_SIZE[1]))
+
         for entry in info:
             index = index + 1
             image = cv2.imread(ops.join(root, entry[0]), cv2.IMREAD_COLOR)
