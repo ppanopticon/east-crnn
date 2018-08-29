@@ -223,7 +223,7 @@ class TextFeatureReader(FeatureIO):
                                                'labels': tf.VarLenFeature(tf.int64),
                                            })
         image = tf.decode_raw(features['images'], tf.uint8)
-        images = tf.reshape(image, [config.cfg.ARCH.INPUT_SIZE[0], config.cfg.ARCH.INPUT_SIZE[1], 3])
+        images = tf.reshape(image, [config.cfg.ARCH.INPUT_SIZE[1], config.cfg.ARCH.INPUT_SIZE[0], 3])
         labels = features['labels']
         labels = tf.cast(labels, tf.int32)
         imagenames = features['imagenames']

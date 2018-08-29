@@ -172,7 +172,7 @@ def loadandexport(root, name, out, dictionary=None):
         info = np.array([tmp.strip().split() for tmp in data.readlines()])
         index = 0
 
-        sys.stdout.write('>>Writing TFRecords for parameters: (l: {}, w: {}, h: {})\n'.format(config.cfg.ARCH.SEQ_LENGTH,config.INPUT_SIZE[0], config.cfg.ARCH.INPUT_SIZE[1]))
+        sys.stdout.write('>>Writing TFRecords for parameters: (l: {}, w: {}, h: {})\n'.format(config.cfg.ARCH.SEQ_LENGTH,config.cfg.ARCH.INPUT_SIZE[0], config.cfg.ARCH.INPUT_SIZE[1]))
 
         for entry in info:
             index = index + 1
@@ -185,7 +185,7 @@ def loadandexport(root, name, out, dictionary=None):
                 else:
                     label = unidecode(entry[1])
 
-                if len(label) <= config.ARCH.SEQ_LENGTH:
+                if len(label) <= config.cfg.ARCH.SEQ_LENGTH:
                     label_encoded = [char_to_int(char) for char in label]
                     features = tf.train.Features(feature={
                         'labels': int64_feature(label_encoded),
@@ -194,7 +194,9 @@ def loadandexport(root, name, out, dictionary=None):
                     })
                     example = tf.train.Example(features=features)
                     writer.write(example.SerializeToString())
-
+            
+            if index >=1000:
+                break;
             sys.stdout.write('\r>>Writing {:d}/{:d} ({:s}) to tfrecords'.format(index, len(info), filename))
             sys.stdout.flush()
         sys.stdout.write('\n')
