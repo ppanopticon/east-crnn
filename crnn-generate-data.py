@@ -8,6 +8,7 @@ import sys
 
 from unidecode import unidecode
 from local_utils import establish_char_dict
+from global_configuration import config
 
 char_dict_path=ops.join(os.getcwd(), 'data/char_dict/char_dict.json')
 ord_map_dict_path=ops.join(os.getcwd(), 'data/char_dict/ord_map.json')
@@ -174,21 +175,24 @@ def loadandexport(root, name, out, dictionary=None):
             index = index + 1
             image = cv2.imread(ops.join(root, entry[0]), cv2.IMREAD_COLOR)
             if image is not None:
-                image_org = cv2.resize(image, (100, 32))
+                image_org = cv2.resize(image, (config.ARCH.INPUT_SIZE[0], config.ARCH.INPUT_SIZE[1]))
                 filename = ops.basename(entry[0])
                 if dictionary is None:
                     label = unidecode(dictionary[int(entry[1])][0])
                 else:
                     label = unidecode(entry[1])
-                label_encoded = [char_to_int(char) for char in label]
-                features = tf.train.Features(feature={
-                    'labels': int64_feature(label_encoded),
-                    'images': bytes_feature(bytes(list(np.reshape(image_org, [100 * 32 * 3])))),
-                    'imagenames': bytes_feature(filename)
-                })
-                example = tf.train.Example(features=features)
-                writer.write(example.SerializeToString())
-            sys.stdout.write('\r>>Writing {:d}/{:d} {:s} tfrecords'.format(index + 1, len(info), filename))
+
+                if len(label) <= config.ARCH.SEQ_LENGTH:
+                    label_encoded = [char_to_int(char) for char in label]
+                    features = tf.train.Features(feature={
+                        'labels': int64_feature(label_encoded),
+                        'images': bytes_feature(bytes(list(np.reshape(image_org, [config.ARCH.INPUT_SIZE[0] * config.ARCH.INPUT_SIZE[1] * 3])))),
+                        'imagenames': bytes_feature(filename)
+                    })
+                    example = tf.train.Example(features=features)
+                    writer.write(example.SerializeToString())
+
+            sys.stdout.write('\r>>Writing {:d}/{:d} ({:s}) to tfrecords'.format(index, len(info), filename))
             sys.stdout.flush()
         sys.stdout.write('\n')
         sys.stdout.flush()
