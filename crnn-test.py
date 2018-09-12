@@ -73,8 +73,7 @@ def test_shadownet(weights_path: str, cfg: EasyDict, visualize: bool, process_al
     :param num_classes: Number of different characters in the dataset
     """
     # Initialize the record decoder
-    decoder = data_utils.TextFeatureIO(char_dict_path=ops.join(cfg.PATH.CHAR_DICT_DIR, 'char_dict.json'),
-                                       ord_map_dict_path=ops.join(cfg.PATH.CHAR_DICT_DIR, 'ord_map.json')).reader
+    decoder = data_utils.TextFeatureIO().reader
     images_t, labels_t, imagenames_t = decoder.read_features(ops.join(cfg.PATH.TFRECORDS_DIR, 'test_feature.tfrecords'),
                                                              num_epochs=None, input_size=cfg.ARCH.INPUT_SIZE,
                                                              input_channels=cfg.ARCH.INPUT_CHANNELS)
