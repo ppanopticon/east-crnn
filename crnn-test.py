@@ -75,8 +75,7 @@ def test_shadownet(weights_path: str, cfg: EasyDict, visualize: bool, process_al
     # Initialize the record decoder
     decoder = data_utils.TextFeatureIO().reader
     images_t, labels_t, imagenames_t = decoder.read_features(ops.join(cfg.PATH.TFRECORDS_DIR, 'test_feature.tfrecords'),
-                                                             num_epochs=None, input_size=cfg.ARCH.INPUT_SIZE,
-                                                             input_channels=3)
+                                                             num_epochs=None)
     if not process_all_data:
         images_sh, labels_sh, imagenames_sh = tf.train.shuffle_batch(tensors=[images_t, labels_t, imagenames_t],
                                                                      batch_size=cfg.TEST.BATCH_SIZE,
