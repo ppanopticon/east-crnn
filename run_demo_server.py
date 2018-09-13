@@ -34,8 +34,8 @@ def get_crnn(checkpoint_path):
     from local_utils import data_utils
 
     # Read configuration for width/height
-    config = load_config()
-    w, h = config.cfg.INPUT_SIZE
+    cfg = load_config().cfg
+    w, h = cfg.ARCH.INPUT_SIZE
 
     # Determine the number of classes.
     decoder = data_utils.TextFeatureIO().reader
@@ -44,11 +44,11 @@ def get_crnn(checkpoint_path):
     g_2 = tf.Graph()
     with g_2.as_default():
         inputdata = tf.placeholder(dtype=tf.float32, shape=[1, h, w, 3], name='input')
-        net = crnn_model.ShadowNet(phase='Test', hidden_nums=config.cfg.HIDDEN_UNITS, layers_nums=config.cfg.HIDDEN_LAYERS, num_classes=num_classes)
+        net = crnn_model.ShadowNet(phase='Test', hidden_nums=cfg.ARCH.HIDDEN_UNITS, layers_nums=cfg.ARCH.HIDDEN_LAYERS, num_classes=num_classes)
         with tf.variable_scope('shadow'):
             net_out = net.build_shadownet(inputdata=inputdata)
 
-        decodes, _ = tf.nn.ctc_beam_search_decoder(inputs=net_out, sequence_length=config.cfg.SEQ_LENGTH * np.ones(1), merge_repeated=False)
+        decodes, _ = tf.nn.ctc_beam_search_decoder(inputs=net_out, sequence_length=cfg.ARCH.SEQ_LENGTH * np.ones(1), merge_repeated=False)
         decoder = data_utils.TextFeatureIO()
 
         saver = tf.train.Saver()
