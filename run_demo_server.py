@@ -12,16 +12,14 @@ import json
 import functools
 import logging
 import collections
-
+from global_configuration import config
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
 
-
+# Location of checkpoints
 east_checkpoint_path = './pretrained/east'
 crrn_checkpoint_path = './pretrained/shadownet'
-
-
 
 @functools.lru_cache(maxsize=1)
 def get_host_info():
@@ -35,14 +33,22 @@ def get_crnn(checkpoint_path):
     from crnn_model import crnn_model
     from local_utils import data_utils
 
+    # Read configuration (width/height)
+    cfg = config.cfg
+    w, h = cfg.ARCH.INPUT_SIZE
+
+    # Determine the number of classes.
+    decoder = data_utils.TextFeatureIO().reader
+    num_classes = len(decoder.char_dict) + 1
+
     g_2 = tf.Graph()
     with g_2.as_default():
-        inputdata = tf.placeholder(dtype=tf.float32, shape=[1, 32, 100, 3], name='input')
-        net = crnn_model.ShadowNet(phase='Test', hidden_nums=256, layers_nums=2, seq_length=25, num_classes=37)
+        inputdata = tf.placeholder(dtype=tf.float32, shape=[1, h, w, 3], name='input')
+        net = crnn_model.ShadowNet(phase='Test', hidden_nums=cfg.ARCH.HIDDEN_UNITS, layers_nums=cfg.ARCH.HIDDEN_LAYERS, num_classes=num_classes)
         with tf.variable_scope('shadow'):
             net_out = net.build_shadownet(inputdata=inputdata)
 
-        decodes, _ = tf.nn.ctc_beam_search_decoder(inputs=net_out, sequence_length=25 * np.ones(1), merge_repeated=False)
+        decodes, _ = tf.nn.ctc_beam_search_decoder(inputs=net_out, sequence_length=cfg.ARCH.SEQ_LENGTH * np.ones(1), merge_repeated=False)
         decoder = data_utils.TextFeatureIO()
 
         saver = tf.train.Saver()
@@ -54,7 +60,7 @@ def get_crnn(checkpoint_path):
         saver.restore(sess=sess, save_path=model_path)
 
         def predictor(img):
-            img = cv2.resize(img, (100, 32))
+            img = cv2.resize(img, (w, h))
             img = np.expand_dims(img, axis=0).astype(np.float32)
             preds = sess.run(decodes, feed_dict={inputdata: img})
             preds = decoder.writer.sparse_tensor_to_str(preds[0])
@@ -67,8 +73,6 @@ def get_predictor(checkpoint_path):
     logger.info('loading model')
     import tensorflow as tf
     import model
-    from icdar import restore_rectangle
-    import lanms
     from eval import resize_image, sort_poly, detect
 
     g_1 = tf.Graph()
@@ -237,8 +241,6 @@ def index_post():
         yb = int(max(line["y1"], line["y3"])) + 1
         cropped = img[yt:yb, xt:xb]
         line["text"] = get_crnn(crrn_checkpoint_path)(cropped)[0]
-        cv2.imwrite("/Users/rgasser/Downloads/{}.jpg".format(line["text"]), cropped)
-
 
     save_result(img, rst)
     return render_template('index.html', session_id=rst['session_id'])
