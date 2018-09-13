@@ -34,7 +34,7 @@ def get_crnn(checkpoint_path):
     from local_utils import data_utils
 
     # Read configuration (width/height)
-    cfg = config.cfg
+    cfg = config
     w, h = cfg.ARCH.INPUT_SIZE
 
     # Determine the number of classes.
