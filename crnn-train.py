@@ -17,8 +17,7 @@ import argparse
 
 from crnn_model import crnn_model
 from local_utils import data_utils, log_utils
-from global_configuration import config
-
+from local_utils.config_utils import load_config
 
 logger = log_utils.init_logger()
 
@@ -28,11 +27,9 @@ def init_args():
     :return:
     """
     parser = argparse.ArgumentParser()
-    parser.add_argument('-d', '--dataset_dir', type=str,
-                        help='Path to dir containing train/test data and annotation files.')
+    parser.add_argument('-d', '--dataset_dir', type=str, help='Path to dir containing train/test data and annotation files.')
     parser.add_argument('-w', '--weights_path', type=str, help='Path to pre-trained weights.')
-    parser.add_argument('-j', '--num_threads', type=int, default=int(os.cpu_count()/2),
-                        help='Number of threads to use in batch shuffling')
+    parser.add_argument('-j', '--num_threads', type=int, default=int(os.cpu_count()/2), help='Number of threads to use in batch shuffling')
 
     return parser.parse_args()
 
@@ -44,39 +41,39 @@ def train_shadownet(dataset_dir, weights_path=None, num_threads=4):
     :param num_threads: Number of threads to use in tf.train.shuffle_batch
     :return:
     """
+    # Load config
+    cfg = load_config().cfg
+
     # decode the tf records to get the training data
     decoder = data_utils.TextFeatureIO().reader
     images, labels, imagenames = decoder.read_features(ops.join(dataset_dir, 'train_feature.tfrecords'),
                                                        num_epochs=None)
     inputdata, input_labels, input_imagenames = tf.train.shuffle_batch(
-        tensors=[images, labels, imagenames], batch_size=config.cfg.TRAIN.BATCH_SIZE,
-        capacity=1000 + 2*config.cfg.TRAIN.BATCH_SIZE, min_after_dequeue=100, num_threads=num_threads)
+        tensors=[images, labels, imagenames], batch_size=cfg.TRAIN.BATCH_SIZE,
+        capacity=1000 + 2*cfg.TRAIN.BATCH_SIZE, min_after_dequeue=100, num_threads=num_threads)
 
     inputdata = tf.cast(x=inputdata, dtype=tf.float32)
 
     # initialise the net model
-    shadownet = crnn_model.ShadowNet(phase='Train',
-                                     hidden_nums=config.cfg.ARCH.HIDDEN_UNITS,
-                                     layers_nums=config.cfg.ARCH.HIDDEN_LAYERS,
-                                     num_classes=len(decoder.char_dict)+1)
+    shadownet = crnn_model.ShadowNet(phase='Train', hidden_nums=cfg.ARCH.HIDDEN_UNITS, layers_nums=cfg.ARCH.HIDDEN_LAYERS, num_classes=len(decoder.char_dict)+1)
 
     with tf.variable_scope('shadow', reuse=False):
         net_out = shadownet.build_shadownet(inputdata=inputdata)
 
     cost = tf.reduce_mean(tf.nn.ctc_loss(labels=input_labels, inputs=net_out,
-                                         sequence_length=config.cfg.ARCH.SEQ_LENGTH*np.ones(config.cfg.TRAIN.BATCH_SIZE)))
+                                         sequence_length=cfg.ARCH.SEQ_LENGTH*np.ones(cfg.TRAIN.BATCH_SIZE)))
 
     decoded, log_prob = tf.nn.ctc_beam_search_decoder(net_out,
-                                                      config.cfg.ARCH.SEQ_LENGTH*np.ones(config.cfg.TRAIN.BATCH_SIZE),
+                                                      cfg.ARCH.SEQ_LENGTH*np.ones(cfg.TRAIN.BATCH_SIZE),
                                                       merge_repeated=False)
 
     sequence_dist = tf.reduce_mean(tf.edit_distance(tf.cast(decoded[0], tf.int32), input_labels))
 
     global_step = tf.Variable(0, name='global_step', trainable=False)
 
-    starter_learning_rate = config.cfg.TRAIN.LEARNING_RATE
+    starter_learning_rate = cfg.TRAIN.LEARNING_RATE
     learning_rate = tf.train.exponential_decay(starter_learning_rate, global_step,
-                                               config.cfg.TRAIN.LR_DECAY_STEPS, config.cfg.TRAIN.LR_DECAY_RATE,
+                                               cfg.TRAIN.LR_DECAY_STEPS, cfg.TRAIN.LR_DECAY_RATE,
                                                staircase=True)
     update_ops = tf.get_collection(tf.GraphKeys.UPDATE_OPS)
 
@@ -103,8 +100,8 @@ def train_shadownet(dataset_dir, weights_path=None, num_threads=4):
 
     # Set sess configuration
     sess_config = tf.ConfigProto()
-    sess_config.gpu_options.per_process_gpu_memory_fraction = config.cfg.TRAIN.GPU_MEMORY_FRACTION
-    sess_config.gpu_options.allow_growth = config.cfg.TRAIN.TF_ALLOW_GROWTH
+    sess_config.gpu_options.per_process_gpu_memory_fraction = cfg.TRAIN.GPU_MEMORY_FRACTION
+    sess_config.gpu_options.allow_growth = cfg.TRAIN.TF_ALLOW_GROWTH
 
     sess = tf.Session(config=sess_config)
 
@@ -112,7 +109,7 @@ def train_shadownet(dataset_dir, weights_path=None, num_threads=4):
     summary_writer.add_graph(sess.graph)
 
     # Set the training parameters
-    train_epochs = config.cfg.TRAIN.EPOCHS
+    train_epochs = cfg.TRAIN.EPOCHS
 
     with sess.as_default():
         if weights_path is None:
@@ -156,7 +153,7 @@ def train_shadownet(dataset_dir, weights_path=None, num_threads=4):
                             accuracy.append(0)
             accuracy = np.mean(np.array(accuracy).astype(np.float32), axis=0)
             #
-            if epoch % config.cfg.TRAIN.DISPLAY_STEP == 0:
+            if epoch % cfg.TRAIN.DISPLAY_STEP == 0:
                 logger.info('Epoch: {:d} cost= {:9f} seq distance= {:9f} train accuracy= {:9f}'.format(
                     epoch + 1, c, seq_distance, accuracy))
 

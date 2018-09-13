@@ -8,7 +8,7 @@ import sys
 
 from unidecode import unidecode
 from local_utils import establish_char_dict
-from global_configuration import config
+from local_utils.config_utils import load_config
 
 char_dict_path=ops.join(os.getcwd(), 'data/char_dict/char_dict.json')
 ord_map_dict_path=ops.join(os.getcwd(), 'data/char_dict/ord_map.json')
@@ -168,28 +168,29 @@ def main():
 #
 #
 def loadandexport(root, name, out, dictionary=None):
+    cfg = load_config().cfg
     with open(ops.join(root, name), 'r') as data, tf.python_io.TFRecordWriter(out) as writer:
         info = np.array([tmp.strip().split() for tmp in data.readlines()])
         index = 0
 
-        sys.stdout.write('>>Writing TFRecords for parameters: (l: {}, w: {}, h: {})\n'.format(config.cfg.ARCH.SEQ_LENGTH,config.cfg.ARCH.INPUT_SIZE[0], config.cfg.ARCH.INPUT_SIZE[1]))
+        sys.stdout.write('>>Writing TFRecords for parameters: (l: {}, w: {}, h: {})\n'.format(cfg.ARCH.SEQ_LENGTH,cfg.ARCH.INPUT_SIZE[0], cfg.ARCH.INPUT_SIZE[1]))
 
         for entry in info:
             index = index + 1
             image = cv2.imread(ops.join(root, entry[0]), cv2.IMREAD_COLOR)
             if image is not None:
-                image_org = cv2.resize(image, (config.cfg.ARCH.INPUT_SIZE[0], config.cfg.ARCH.INPUT_SIZE[1]))
+                image_org = cv2.resize(image, (cfg.ARCH.INPUT_SIZE[0], cfg.ARCH.INPUT_SIZE[1]))
                 filename = ops.basename(entry[0])
                 if dictionary is not None:
                     label = unidecode(dictionary[int(entry[1])][0])
                 else:
                     label = unidecode(entry[1])
 
-                if len(label) <= config.cfg.ARCH.SEQ_LENGTH:
+                if len(label) <= cfg.ARCH.SEQ_LENGTH:
                     label_encoded = [char_to_int(char) for char in label]
                     features = tf.train.Features(feature={
                         'labels': int64_feature(label_encoded),
-                        'images': bytes_feature(bytes(list(np.reshape(image_org, [config.cfg.ARCH.INPUT_SIZE[0] * config.cfg.ARCH.INPUT_SIZE[1] * 3])))),
+                        'images': bytes_feature(bytes(list(np.reshape(image_org, [cfg.ARCH.INPUT_SIZE[0] * cfg.ARCH.INPUT_SIZE[1] * 3])))),
                         'imagenames': bytes_feature(filename)
                     })
                     example = tf.train.Example(features=features)
