@@ -12,7 +12,7 @@ import json
 import functools
 import logging
 import collections
-from global_configuration import config
+from local_utils.config_utils import load_config
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
@@ -34,6 +34,7 @@ def get_crnn(checkpoint_path):
     from local_utils import data_utils
 
     # Read configuration for width/height
+    config = load_config()
     w, h = config.cfg.INPUT_SIZE
 
     # Determine the number of classes.
