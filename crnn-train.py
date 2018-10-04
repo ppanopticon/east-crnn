@@ -114,52 +114,41 @@ def train_shadownet(dataset_dir, weights_path=None, num_threads=4):
             logger.info('Restore model from {:s}'.format(weights_path))
             saver.restore(sess=sess, save_path=weights_path)
 
-        coord = tf.train.Coordinator()
-        threads = tf.train.start_queue_runners(sess=sess, coord=coord)
-
+        patience_counter = 1
+        cost_history = [np.inf]
         for epoch in range(train_epochs):
-            _, c, seq_distance, preds, gt_labels, summary = sess.run(
-                [optimizer, cost, sequence_dist, decoded, input_labels, merge_summary_op])
+            if epoch > 1 and cfg.TRAIN.EARLY_STOPPING:
+                # We always compare to the first point where cost didn't improve
+                if cost_history[-1 - patience_counter] - cost_history[-1] > cfg.TRAIN.PATIENCE_DELTA:
+                    patience_counter = 1
+                else:
+                    patience_counter += 1
+                if patience_counter > cfg.TRAIN.PATIENCE_EPOCHS:
+                    logger.info("Cost didn't improve beyond {:f} for {:d} epochs, stopping early.".
+                                format(cfg.TRAIN.PATIENCE_DELTA, patience_counter))
+                    break
+            if decode:
+                _, c, seq_distance, predictions, labels, summary = sess.run(
+                    [optimizer, cost, sequence_dist, decoded, input_labels, merge_summary_op])
 
-            # calculate the precision
-            preds = decoder.sparse_tensor_to_str(preds[0])
-            gt_labels = decoder.sparse_tensor_to_str(gt_labels)
+                labels = decoder.sparse_tensor_to_str(labels)
+                predictions = decoder.sparse_tensor_to_str(predictions[0])
+                accuracy = compute_accuracy(labels, predictions)
 
-            accuracy = []
+                if epoch % cfg.TRAIN.DISPLAY_STEP == 0:
+                    logger.info('Epoch: {:d} cost= {:9f} seq distance= {:9f} train accuracy= {:9f}'.format(
+                        epoch + 1, c, seq_distance, accuracy))
 
-            for index, gt_label in enumerate(gt_labels):
-                pred = preds[index]
-                total_count = len(gt_label)
-                correct_count = 0
-                try:
-                    for i, tmp in enumerate(gt_label):
-                        if tmp == pred[i]:
-                            correct_count += 1
-                except IndexError:
-                    continue
-                finally:
-                    try:
-                        accuracy.append(correct_count / total_count)
-                    except ZeroDivisionError:
-                        if len(pred) == 0:
-                            accuracy.append(1)
-                        else:
-                            accuracy.append(0)
-            accuracy = np.mean(np.array(accuracy).astype(np.float32), axis=0)
-            #
-            if epoch % cfg.TRAIN.DISPLAY_STEP == 0:
-                logger.info('Epoch: {:d} cost= {:9f} seq distance= {:9f} train accuracy= {:9f}'.format(
-                    epoch + 1, c, seq_distance, accuracy))
+            else:
+                _, c, summary = sess.run([optimizer, cost, merge_summary_op])
+                if epoch % cfg.TRAIN.DISPLAY_STEP == 0:
+                    logger.info('Epoch: {:d} cost= {:9f}'.format(epoch + 1, c))
 
+            cost_history.append(c)
             summary_writer.add_summary(summary=summary, global_step=epoch)
             saver.save(sess=sess, save_path=model_save_path, global_step=epoch)
 
-        coord.request_stop()
-        coord.join(threads=threads)
-
-    sess.close()
-
-    return
+        return np.array(cost_history[1:])  # Don't return the first np.inf
 
 
 if __name__ == '__main__':
