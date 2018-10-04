@@ -30,11 +30,11 @@ def init_args():
     parser.add_argument('-d', '--dataset_dir', type=str, help='Path to dir containing train/test data and annotation files.')
     parser.add_argument('-w', '--weights_path', type=str, help='Path to pre-trained weights.')
     parser.add_argument('-j', '--num_threads', type=int, default=int(os.cpu_count()/2), help='Number of threads to use in batch shuffling')
-
+    parser.add_argument('-e', '--decode', default=False, help='Activate decoding of predictions during training (slow!)')
     return parser.parse_args()
 
 
-def train_shadownet(dataset_dir, weights_path=None, num_threads=4):
+def train_shadownet(dataset_dir, weights_path=None, decode: bool=False, num_threads=4):
     """
     :param dataset_dir:
     :param weights_path:
@@ -80,7 +80,9 @@ def train_shadownet(dataset_dir, weights_path=None, num_threads=4):
         os.makedirs(tboard_save_path)
     tf.summary.scalar(name='Cost', tensor=cost)
     tf.summary.scalar(name='Learning_Rate', tensor=learning_rate)
-    tf.summary.scalar(name='Seq_Dist', tensor=sequence_dist)
+    if decode:
+        tf.summary.scalar(name='Seq_Dist', tensor=sequence_dist)
+
     merge_summary_op = tf.summary.merge_all()
 
     # Set saver configuration
@@ -158,5 +160,5 @@ if __name__ == '__main__':
     if not ops.exists(args.dataset_dir):
         raise ValueError('{:s} doesn\'t exist'.format(args.dataset_dir))
 
-    train_shadownet(args.dataset_dir, args.weights_path, args.num_threads)
+    train_shadownet(args.dataset_dir, args.weights_path, args.decode_outputs, args.num_threads)
     print('Done')
