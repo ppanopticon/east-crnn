@@ -8,6 +8,8 @@
 """
 Implement some utils used to convert image and it's corresponding label into tfrecords
 """
+from typing import List, Tuple
+
 import numpy as np
 import tensorflow as tf
 import os
