@@ -14,6 +14,7 @@ import os
 import os.path as ops
 import sys
 
+from easydict import EasyDict
 from global_configuration import config
 from local_utils import establish_char_dict
 
