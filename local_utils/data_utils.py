@@ -218,7 +218,7 @@ class TextFeatureReader(FeatureIO):
         assert ops.exists(tfrecords_path), "tfrecords file not found: %s" % tfrecords_path
 
         def extract_batch(x):
-            return TextFeatureReader.extract_features_batch(x, cfg.ARCH.INPUT_SIZE, cfg.ARCH.INPUT_CHANNELS)
+            return TextFeatureReader.extract_features_batch(x, cfg.ARCH.INPUT_SIZE, 3)
 
         dataset = tf.data.TFRecordDataset(tfrecords_path)
         dataset = dataset.batch(cfg.TRAIN.BATCH_SIZE, drop_remainder=True)
