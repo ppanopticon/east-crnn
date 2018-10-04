@@ -46,13 +46,7 @@ def train_shadownet(dataset_dir, weights_path=None, num_threads=4):
 
     # decode the tf records to get the training data
     decoder = data_utils.TextFeatureIO().reader
-    images, labels, imagenames = decoder.read_features(ops.join(dataset_dir, 'train_feature.tfrecords'),
-                                                       num_epochs=None)
-    inputdata, input_labels, input_imagenames = tf.train.shuffle_batch(
-        tensors=[images, labels, imagenames], batch_size=cfg.TRAIN.BATCH_SIZE,
-        capacity=1000 + 2*cfg.TRAIN.BATCH_SIZE, min_after_dequeue=100, num_threads=num_threads)
-
-    inputdata = tf.cast(x=inputdata, dtype=tf.float32)
+    input_images, input_labels, input_image_names = decoder.read_features(cfg, ops.join(dataset_dir, 'train_feature.tfrecords'), cfg.TRAIN.BATCH_SIZE, num_threads)
 
     # initialise the net model
     shadownet = crnn_model.ShadowNet(phase='Train', hidden_nums=cfg.ARCH.HIDDEN_UNITS, layers_nums=cfg.ARCH.HIDDEN_LAYERS, num_classes=len(decoder.char_dict)+1)
