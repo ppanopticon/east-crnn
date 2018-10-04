@@ -113,9 +113,9 @@ class ShadowNet(cnn_basenet.CNNBaseModel):
         with tf.variable_scope('LSTMLayers'):
             # construct stack lstm rcnn layer
             # forward lstm cell
-            fw_cell_list = [rnn.BasicLSTMCell(nh, forget_bias=1.0) for nh in [self.__hidden_nums]*self.__layers_nums]
+            fw_cell_list = [tf.nn.rnn_cell.LSTMCell(nh, forget_bias=1.0) for nh in [self.__hidden_nums]*self.__layers_nums]
             # Backward direction cells
-            bw_cell_list = [rnn.BasicLSTMCell(nh, forget_bias=1.0) for nh in [self.__hidden_nums]*self.__layers_nums]
+            bw_cell_list = [tf.nn.rnn_cell.LSTMCell(nh, forget_bias=1.0) for nh in [self.__hidden_nums]*self.__layers_nums]
 
             stack_lstm_layer, _, _ = rnn.stack_bidirectional_dynamic_rnn(fw_cell_list, bw_cell_list, inputdata,
                                                                          dtype=tf.float32)
