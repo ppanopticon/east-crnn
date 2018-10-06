@@ -118,12 +118,10 @@ def train_shadownet(dataset_dir, weights_path=None, decode: bool=False, num_thre
             logger.info('Restore model from {:s}'.format(weights_path))
             saver.restore(sess=sess, save_path=weights_path)
 
-        patience_counter = 1
         cost_history = [np.inf]
         for epoch in range(train_epochs):
-            if decode and epoch % cfg.TRAIN.TEST_DISPLAY_STEP == 0:
-                _, c, seq_distance, predictions, labels, summary = sess.run(
-                    [optimizer, cost, sequence_dist, decoded, input_labels, merge_summary_op])
+            if decode:
+                _, c, seq_distance, predictions, labels, summary = sess.run([optimizer, cost, sequence_dist, decoded, input_labels, merge_summary_op])
 
                 labels = decoder.sparse_tensor_to_str(labels)
                 predictions = decoder.sparse_tensor_to_str(predictions[0])
