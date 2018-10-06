@@ -8,7 +8,7 @@
 """
 Implement some utils used to convert image and it's corresponding label into tfrecords
 """
-from typing import List, Tuple
+from typing import Tuple
 
 import numpy as np
 import tensorflow as tf
@@ -16,9 +16,8 @@ import os
 import os.path as ops
 import sys
 
-from easydict import EasyDict
-from global_configuration import config
 from local_utils import establish_char_dict
+from local_utils.config_utils import load_config
 
 
 class FeatureIO(object):
@@ -199,23 +198,25 @@ class TextFeatureWriter(FeatureIO):
 
 class TextFeatureReader(FeatureIO):
     """
-        Implement the crnn feature reader
+        Implement the CRNN feature reader
     """
     def __init__(self):
         super(TextFeatureReader, self).__init__()
         return
 
     @staticmethod
-    def read_features(cfg: EasyDict, tfrecords_path, batch_size: int, num_threads: int) -> Tuple[tf.Tensor, tf.Tensor, tf.Tensor]:
+    def read_features(tfrecords_path, batch_size: int, num_threads: int) -> Tuple[tf.Tensor, tf.Tensor, tf.Tensor]:
         """
-        :param cfg:
-        :param tfrecords_path:
-        :param batch_size:
-        :param num_threads:
+        :param tfrecords_path: Path to the tfrecords file.
+        :param batch_size: The size of a batch.
+        :param num_threads: The number of threads to load and shuffle.
         :return: input_images, input_labels, input_image_names
         """
 
         assert ops.exists(tfrecords_path), "tfrecords file not found: %s" % tfrecords_path
+
+        # Load configuration
+        cfg = load_config().cfg
 
         def extract_batch(x):
             return TextFeatureReader.extract_features_batch(x, cfg.ARCH.INPUT_SIZE, 3)
@@ -230,8 +231,7 @@ class TextFeatureReader(FeatureIO):
         return input_images, input_labels, input_image_names
 
     @staticmethod
-    def extract_features_batch(serialized_batch, input_size: Tuple[int, int], input_channels: int) \
-            -> Tuple[tf.Tensor, tf.Tensor, tf.Tensor]:
+    def extract_features_batch(serialized_batch, input_size: Tuple[int, int], input_channels: int) -> Tuple[tf.Tensor, tf.Tensor, tf.Tensor]:
         features = tf.parse_example(serialized_batch,
                                     features={'images': tf.FixedLenFeature((), tf.string),
                                               'imagenames': tf.FixedLenFeature([1], tf.string),

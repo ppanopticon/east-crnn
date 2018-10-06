@@ -46,7 +46,7 @@ def train_shadownet(dataset_dir, weights_path=None, decode: bool=False, num_thre
 
     # decode the tf records to get the training data
     decoder = data_utils.TextFeatureIO().reader
-    input_images, input_labels, input_image_names = decoder.read_features(cfg, ops.join(dataset_dir, 'train_feature.tfrecords'), cfg.TRAIN.BATCH_SIZE, num_threads)
+    input_images, input_labels, input_image_names = decoder.read_features(ops.join(dataset_dir, 'train_feature.tfrecords'), cfg.TRAIN.BATCH_SIZE, num_threads)
 
     # initialise the net model
     shadownet = crnn_model.ShadowNet(phase='Train', hidden_nums=cfg.ARCH.HIDDEN_UNITS, layers_nums=cfg.ARCH.HIDDEN_LAYERS, num_classes=len(decoder.char_dict)+1)
@@ -74,7 +74,7 @@ def train_shadownet(dataset_dir, weights_path=None, decode: bool=False, num_thre
     with tf.control_dependencies(update_ops):
         optimizer = tf.train.AdadeltaOptimizer(learning_rate=learning_rate).minimize(loss=cost, global_step=global_step)
 
-    # Set tf summary
+    # Setup TF summary
     tboard_save_path = 'tboard/shadownet'
     if not ops.exists(tboard_save_path):
         os.makedirs(tboard_save_path)

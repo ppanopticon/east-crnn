@@ -73,7 +73,7 @@ def test_shadownet(dataset_dir: str, weights_path: str, cfg: EasyDict, visualize
     """
     # Initialize the record decoder
     decoder = data_utils.TextFeatureIO().reader
-    images_t, labels_t, imagenames_t = decoder.read_features(cfg, ops.join(dataset_dir, 'train_feature.tfrecords'), cfg.TEST.BATCH_SIZE, num_threads)
+    images_t, labels_t, imagenames_t = decoder.read_features(ops.join(dataset_dir, 'train_feature.tfrecords'), cfg.TEST.BATCH_SIZE, num_threads)
 
     # build shadownet
     num_classes = len(decoder.char_dict) + 1 if num_classes == 0 else num_classes
