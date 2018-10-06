@@ -119,16 +119,6 @@ def train_shadownet(dataset_dir, weights_path=None, decode: bool=False, num_thre
         patience_counter = 1
         cost_history = [np.inf]
         for epoch in range(train_epochs):
-            if epoch > 1 and cfg.TRAIN.EARLY_STOPPING:
-                # We always compare to the first point where cost didn't improve
-                if cost_history[-1 - patience_counter] - cost_history[-1] > cfg.TRAIN.PATIENCE_DELTA:
-                    patience_counter = 1
-                else:
-                    patience_counter += 1
-                if patience_counter > cfg.TRAIN.PATIENCE_EPOCHS:
-                    logger.info("Cost didn't improve beyond {:f} for {:d} epochs, stopping early.".
-                                format(cfg.TRAIN.PATIENCE_DELTA, patience_counter))
-                    break
             if decode:
                 _, c, seq_distance, predictions, labels, summary = sess.run(
                     [optimizer, cost, sequence_dist, decoded, input_labels, merge_summary_op])
