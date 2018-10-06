@@ -16,8 +16,10 @@ import numpy as np
 import argparse
 
 from crnn_model import crnn_model
+
 from local_utils import data_utils, log_utils
 from local_utils.config_utils import load_config
+from local_utils.log_utils import compute_accuracy
 
 logger = log_utils.init_logger()
 
@@ -119,7 +121,7 @@ def train_shadownet(dataset_dir, weights_path=None, decode: bool=False, num_thre
         patience_counter = 1
         cost_history = [np.inf]
         for epoch in range(train_epochs):
-            if decode:
+            if decode and epoch % cfg.TRAIN.TEST_DISPLAY_STEP == 0:
                 _, c, seq_distance, predictions, labels, summary = sess.run(
                     [optimizer, cost, sequence_dist, decoded, input_labels, merge_summary_op])
 
