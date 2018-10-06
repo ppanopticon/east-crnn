@@ -106,9 +106,6 @@ def test_shadownet(dataset_dir: str, weights_path: str, cfg: EasyDict, visualize
     with sess.as_default():
         saver.restore(sess=sess, save_path=weights_path)
 
-        coord = tf.train.Coordinator()
-        threads = tf.train.start_queue_runners(sess=sess, coord=coord)
-
         print('Start predicting...')
 
         accuracy = 0
@@ -134,9 +131,6 @@ def test_shadownet(dataset_dir: str, weights_path: str, cfg: EasyDict, visualize
         # (BATCH_SIZE) for this to equal the actual mean
         accuracy /= num_iterations
         print('Mean test accuracy is {:5f}'.format(accuracy))
-
-        coord.request_stop()
-        coord.join(threads=threads)
 
 
 if __name__ == '__main__':
