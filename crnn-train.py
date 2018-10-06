@@ -160,5 +160,5 @@ if __name__ == '__main__':
     if not ops.exists(args.dataset_dir):
         raise ValueError('{:s} doesn\'t exist'.format(args.dataset_dir))
 
-    train_shadownet(args.dataset_dir, args.weights_path, args.decode_outputs, args.num_threads)
+    train_shadownet(args.dataset_dir, args.weights_path, args.decode, args.num_threads)
     print('Done')
