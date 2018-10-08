@@ -71,28 +71,29 @@ class ShadowNet(cnn_basenet.CNNBaseModel):
         :return:
         """
         conv1 = self.__conv_stage(inputdata=inputdata, out_dims=64, name='conv1')  # batch*16*50*64
-        conv2 = self.__conv_stage(inputdata=conv1, out_dims=128, name='conv2')  # batch*8*25*128
-        conv3 = self.conv2d(inputdata=conv2, out_channel=256, kernel_size=3, stride=1, use_bias=False, name='conv3')  # batch*8*25*256
-        relu3 = self.relu(conv3) # batch*8*25*256
-        conv4 = self.conv2d(inputdata=relu3, out_channel=256, kernel_size=3, stride=1, use_bias=False, name='conv4')  # batch*8*25*256
-        relu4 = self.relu(conv4)  # batch*8*25*256
-        max_pool4 = self.maxpooling(inputdata=relu4, kernel_size=[2, 1], stride=[2, 1], padding='VALID')  # batch*4*25*256
-        conv5 = self.conv2d(inputdata=max_pool4, out_channel=512, kernel_size=3, stride=1, use_bias=False, name='conv5')  # batch*4*25*512
-        relu5 = self.relu(conv5)  # batch*4*25*512
-        if self.phase.lower() == 'train':
-            bn5 = self.layerbn(inputdata=relu5, is_training=True)
-        else:
-            bn5 = self.layerbn(inputdata=relu5, is_training=False)  # batch*4*25*512
-        conv6 = self.conv2d(inputdata=bn5, out_channel=512, kernel_size=3, stride=1, use_bias=False, name='conv6')  # batch*4*25*512
+        conv2 = self.__conv_stage(inputdata=conv1, out_dims=96, name='conv2')  # batch*8*25*128
+        conv3 = self.__conv_stage(inputdata=conv2, out_dims=128, name='conv3')  # batch*8*25*128
+        conv4 = self.conv2d(inputdata=conv3, out_channel=256, kernel_size=3, stride=1, use_bias=False, name='conv4')  # batch*8*25*256
+        relu4 = self.relu(conv4) # batch*8*25*256
+        conv5 = self.conv2d(inputdata=relu4, out_channel=256, kernel_size=3, stride=1, use_bias=False, name='conv5')  # batch*8*25*256
+        relu5 = self.relu(conv5)  # batch*8*25*256
+        max_pool5 = self.maxpooling(inputdata=relu5, kernel_size=[2, 1], stride=[2, 1], padding='VALID')  # batch*4*25*256
+        conv6 = self.conv2d(inputdata=max_pool5, out_channel=512, kernel_size=3, stride=1, use_bias=False, name='conv6')  # batch*4*25*512
         relu6 = self.relu(conv6)  # batch*4*25*512
         if self.phase.lower() == 'train':
             bn6 = self.layerbn(inputdata=relu6, is_training=True)
         else:
             bn6 = self.layerbn(inputdata=relu6, is_training=False)  # batch*4*25*512
-        max_pool6 = self.maxpooling(inputdata=bn6, kernel_size=[2, 1], stride=[2, 1])  # batch*2*25*512
-        conv7 = self.conv2d(inputdata=max_pool6, out_channel=512, kernel_size=2, stride=[2, 1], use_bias=False, name='conv7')  # batch*1*25*512
-        relu7 = self.relu(conv7)  # batch*1*25*512
-        return relu7
+        conv7 = self.conv2d(inputdata=bn6, out_channel=512, kernel_size=3, stride=1, use_bias=False, name='conv7')  # batch*4*25*512
+        relu7 = self.relu(conv7)  # batch*4*25*512
+        if self.phase.lower() == 'train':
+            bn7 = self.layerbn(inputdata=relu7, is_training=True)
+        else:
+            bn7 = self.layerbn(inputdata=relu7, is_training=False)  # batch*4*25*512
+        max_pool7 = self.maxpooling(inputdata=bn7, kernel_size=[2, 1], stride=[2, 1])  # batch*2*25*512
+        conv8 = self.conv2d(inputdata=max_pool7, out_channel=512, kernel_size=2, stride=[2, 1], use_bias=False, name='conv8')  # batch*1*25*512
+        relu8 = self.relu(conv8)  # batch*1*25*512
+        return relu8
 
     def __map_to_sequence(self, inputdata: tf.Tensor) -> tf.Tensor:
         """ Implements the map to sequence part of the network.
