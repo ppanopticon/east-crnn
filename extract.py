@@ -210,7 +210,7 @@ def extract(extraction_dir: str, output: str = None, copy: bool = False):
                         crnn_count += 1
 
                     # Generate output
-                    if output == None:
+                    if output is None:
                         write_output(boxes["text_lines"], root, image_path, False)
                     else:
                         write_output(boxes["text_lines"], output, image_path, copy)
@@ -234,7 +234,7 @@ if __name__ == '__main__':
     # Initialize arguments
     parser = argparse.ArgumentParser()
     parser.add_argument('-e', '--extraction_dir', type=str, help='Path to dir containing images for extraction.')
-    parser.add_argument('-o', '--output_dir', type=str, help='Path to directory that should hold the final output.')
+    parser.add_argument('-o', '--output_dir', type=str, default=None, help='Path to directory that should hold the final output.')
     parser.add_argument('-c', '--copy_images', type=bool, default=False, help='Only valid for -o; copies the image.')
 
     args = parser.parse_args()
@@ -243,4 +243,4 @@ if __name__ == '__main__':
         raise ValueError('{:s} doesn\'t exist'.format(args.extraction_dir))
 
     # Start extraction
-    extract(args.extraction_dir)
+    extract(args.extraction_dir, args.output_dir, args.copy_images)
