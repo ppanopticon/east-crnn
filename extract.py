@@ -219,7 +219,7 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     if not ops.exists(args.extraction_dir):
-        raise ValueError('{:s} doesn\'t exist'.format(args.dataset_dir))
+        raise ValueError('{:s} doesn\'t exist'.format(args.extraction_dir))
 
     # Start extraction
     extract(args.extraction_dir)
