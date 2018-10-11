@@ -200,7 +200,7 @@ def extract(extraction_dir: str, output: str = None, copy: bool = False):
                         yb = int(max(line["y1"], line["y3"])) + 1
                         cropped_img = img[yt:yb, xt:xb]
                         if cropped_img.shape[0] == 0 or cropped_img.shape[1] == 0:
-                            logger.warn('Error in image {}: Nullary bounding box...'.format(path))
+                            logger.warn('Error in image {}: Nullary bounding box...'.format(image_path))
                             continue
 
                         # Infer text
