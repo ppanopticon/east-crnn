@@ -214,8 +214,7 @@ def extract(extraction_dir: str):
 if __name__ == '__main__':
     # Initialize arguments
     parser = argparse.ArgumentParser()
-    parser.add_argument('-e', '--extraction_dir', type=str,
-                        help='Path to dir containing train/test data and annotation files.')
+    parser.add_argument('--extraction_dir', type=str, help='Path to dir containing images for extraction.')
     args = parser.parse_args()
 
     if not ops.exists(args.extraction_dir):
