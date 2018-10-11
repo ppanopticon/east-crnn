@@ -2,12 +2,7 @@ import tensorflow as tf
 import numpy as np
 
 from tensorflow.contrib import slim
-
-tf.app.flags.DEFINE_integer('text_scale', 512, '')
-
 from models.resnet import resnet_v1
-
-FLAGS = tf.app.flags.FLAGS
 
 
 def unpool(inputs):
@@ -30,7 +25,7 @@ def mean_image_subtraction(images, means=[123.68, 116.78, 103.94]):
     return tf.concat(axis=3, values=channels)
 
 
-def model(images, weight_decay=1e-5, is_training=True):
+def model(cfg, images, weight_decay=1e-5, is_training=True):
     '''
     define the model, we use slim's implemention of resnet
     '''
@@ -75,7 +70,7 @@ def model(images, weight_decay=1e-5, is_training=True):
             # this is do with the angle map
             F_score = slim.conv2d(g[3], 1, 1, activation_fn=tf.nn.sigmoid, normalizer_fn=None)
             # 4 channel of axis aligned bbox and 1 channel rotation angle
-            geo_map = slim.conv2d(g[3], 4, 1, activation_fn=tf.nn.sigmoid, normalizer_fn=None) * FLAGS.text_scale
+            geo_map = slim.conv2d(g[3], 4, 1, activation_fn=tf.nn.sigmoid, normalizer_fn=None) * cfg.EAST.TEXT_SCALE
             angle_map = (slim.conv2d(g[3], 1, 1, activation_fn=tf.nn.sigmoid, normalizer_fn=None) - 0.5) * np.pi/2 # angle is between [-45, 45]
             F_geometry = tf.concat([geo_map, angle_map], axis=-1)
 

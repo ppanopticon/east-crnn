@@ -62,6 +62,11 @@ __C.TEST.TF_ALLOW_GROWTH = False
 # Set the test batch size
 __C.TEST.BATCH_SIZE = 32
 
+
+__C.EAST = edict()
+# Text scale option for EAST
+__C.EAST.TEXT_SCALE = 512
+
 # Path config
 __C.PATH = edict()
 # Path to save the model checkpoints
