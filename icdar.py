@@ -5,7 +5,6 @@ import cv2
 import time
 import os
 import numpy as np
-import scipy.optimize
 import matplotlib.pyplot as plt
 import matplotlib.patches as Patches
 from shapely.geometry import Polygon

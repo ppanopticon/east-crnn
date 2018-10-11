@@ -12,7 +12,7 @@ import json
 import functools
 import logging
 import collections
-from local_utils.config_utils import load_config
+from utils.config_utils import load_config
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
@@ -30,8 +30,8 @@ def get_host_info():
 @functools.lru_cache(maxsize=100)
 def get_crnn(checkpoint_path):
     import tensorflow as tf
-    from crnn_model import crnn_model
-    from local_utils import data_utils
+    from models.crnn import crnn_model
+    from utils import data_utils
 
     # Read configuration for width/height
     cfg = load_config().cfg
@@ -72,7 +72,7 @@ def get_crnn(checkpoint_path):
 def get_predictor(checkpoint_path):
     logger.info('loading model')
     import tensorflow as tf
-    import model
+    from models.east import model
     from eval import resize_image, sort_poly, detect
 
     g_1 = tf.Graph()

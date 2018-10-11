@@ -16,8 +16,8 @@ import os
 import os.path as ops
 import sys
 
-from local_utils import establish_char_dict
-from local_utils.config_utils import load_config
+from utils import establish_char_dict
+from utils.config_utils import load_config
 
 
 class FeatureIO(object):

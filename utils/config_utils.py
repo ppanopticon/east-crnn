@@ -11,7 +11,7 @@ def load_config(config_file: str = None) -> EasyDict:
         module = os.path.basename(config_file)
     else:
         path = "."
-        module = "global_configuration.config"
+        module = "configuration.config"
 
     try:
         sys.path.insert(0, path)

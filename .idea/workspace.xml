@@ -1,9 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="73ff7ead-e7a2-4d49-a7ec-e7a7bc6f5055" name="Default" comment="" />
+    <list default="true" id="73ff7ead-e7a2-4d49-a7ec-e7a7bc6f5055" name="Default" comment="">
+      <change afterPath="$PROJECT_DIR$/extract.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/models/east/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/models/resnet/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/EAST+RCNN.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/EAST+RCNN.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/crnn-generate-data.py" beforeDir="false" afterPath="$PROJECT_DIR$/crnn-generate-data.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/crnn-test.py" beforeDir="false" afterPath="$PROJECT_DIR$/crnn-test.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/crnn-train.py" beforeDir="false" afterPath="$PROJECT_DIR$/crnn-train.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/crnn_model/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/crnn/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/crnn_model/cnn_basenet.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/crnn/cnn_basenet.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/crnn_model/crnn_model.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/crnn/crnn_model.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_images/img_10.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_images/img_14.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_images/img_2.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_images/img_26.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_images/img_75.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_images/web-demo.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/eval.py" beforeDir="false" afterPath="$PROJECT_DIR$/eval.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/global_configuration/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/configuration/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/global_configuration/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/configuration/config.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/icdar.py" beforeDir="false" afterPath="$PROJECT_DIR$/icdar.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/local_utils/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/local_utils/config_utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/config_utils.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/local_utils/data_utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/data_utils.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/local_utils/establish_char_dict.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/establish_char_dict.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/local_utils/log_utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/log_utils.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/east/model.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/multigpu_train.py" beforeDir="false" afterPath="$PROJECT_DIR$/multigpu_train.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nets/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nets/resnet_utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/resnet/resnet_utils.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nets/resnet_v1.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/resnet/resnet_v1.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/run_demo_server.py" beforeDir="false" afterPath="$PROJECT_DIR$/run_demo_server.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/training_samples/img_1.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/training_samples/img_1.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/training_samples/img_2.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/training_samples/img_2.txt" beforeDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
-    <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -11,15 +49,126 @@
   </component>
   <component name="CoverageDataManager">
     <SUITE FILE_PATH="coverage/EAST_RCNN$GenerateTestData.coverage" NAME="GenerateTestData Coverage Results" MODIFIED="1532463749287" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/east_crnn$EAST_RCNN.coverage" NAME="EAST+RCNN Coverage Results" MODIFIED="1532517527681" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/EAST_RCNN$EAST_RCNN.coverage" NAME="EAST+RCNN Coverage Results" MODIFIED="1532430020423" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+  </component>
+  <component name="FUSProjectUsageTrigger">
+    <session id="-799062147">
+      <usages-collector id="statistics.file.extensions.edit">
+        <counts>
+          <entry key="py" value="1190" />
+          <entry key="txt" value="74" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.edit">
+        <counts>
+          <entry key="PLAIN_TEXT" value="74" />
+          <entry key="Python" value="1190" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.js.language.service.starts" />
+      <usages-collector id="statistics.file.extensions.open">
+        <counts>
+          <entry key="LICENSE" value="1" />
+          <entry key="checkpoint" value="3" />
+          <entry key="log" value="1" />
+          <entry key="md" value="3" />
+          <entry key="py" value="35" />
+          <entry key="txt" value="3" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.vcs.git.usages" />
+      <usages-collector id="statistics.file.types.open">
+        <counts>
+          <entry key="Markdown" value="3" />
+          <entry key="PLAIN_TEXT" value="8" />
+          <entry key="Python" value="35" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.lifecycle.project">
+        <counts>
+          <entry key="project.closed" value="2" />
+          <entry key="project.open.time.5" value="1" />
+          <entry key="project.open.time.6" value="1" />
+          <entry key="project.opened" value="2" />
+        </counts>
+      </usages-collector>
+    </session>
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="run_demo_server.py" pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/crnn-train.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="2250">
+              <caret line="150" column="28" selection-end-line="153" selection-end-column="17" />
+              <folding>
+                <element signature="e#231#240#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/readme.md">
+          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+            <state split_layout="SPLIT">
+              <first_editor />
+              <second_editor />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/models/__init__.py">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/configuration/config.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="975">
+              <caret line="68" column="48" selection-start-line="68" selection-start-column="48" selection-end-line="68" selection-end-column="48" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/extract.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="680">
+              <caret line="217" column="26" selection-start-line="217" selection-start-column="26" selection-end-line="217" selection-end-column="26" />
+              <folding>
+                <element signature="e#231#240#0" expanded="true" />
+                <marker date="1539247997216" expanded="true" signature="6138:7579" ph="..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/crnn-test.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="210">
+              <caret line="14" column="17" selection-start-line="14" selection-start-column="7" selection-end-line="14" selection-end-column="17" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/requirements.txt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="120">
+              <caret line="8" column="18" selection-start-line="8" selection-start-column="18" selection-end-line="8" selection-end-column="18" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/run_demo_server.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="586">
-              <caret line="176" selection-start-line="176" selection-end-line="176" selection-end-column="15" />
+            <state relative-caret-position="674">
+              <caret line="250" column="24" lean-forward="true" selection-start-line="250" selection-start-column="24" selection-end-line="250" selection-end-column="24" />
               <folding>
                 <element signature="e#24#33#0" expanded="true" />
               </folding>
@@ -27,46 +176,49 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="generate-test-data.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/generate-test-data.py">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/multigpu_train.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="315">
-              <caret line="21" selection-start-line="21" selection-end-line="21" />
+            <state relative-caret-position="15">
+              <caret line="45" column="20" selection-start-line="45" selection-start-column="20" selection-end-line="45" selection-end-column="20" />
               <folding>
-                <element signature="e#0#15#0" expanded="true" />
+                <element signature="e#0#11#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="model.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/model.py">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/locality_aware_nms.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
+            <state relative-caret-position="345">
+              <caret line="23" column="27" selection-start-line="23" selection-start-column="27" selection-end-line="23" selection-end-column="27" />
               <folding>
-                <element signature="e#0#23#0" expanded="true" />
+                <element signature="e#0#18#0" expanded="true" />
               </folding>
             </state>
           </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="icdar.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/icdar.py">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file leaf-file-name="data_util.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/data_util.py">
-          <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
     </leaf>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
       <find>checkpoint</find>
       <find>detect</find>
+      <find>sequence_le</find>
+      <find>rtparams</find>
     </findStrings>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
@@ -74,6 +226,15 @@
         <option value="$PROJECT_DIR$/run_demo_server.py" />
         <option value="$PROJECT_DIR$/tools/generate-test-data.py" />
         <option value="$PROJECT_DIR$/generate-test-data.py" />
+        <option value="$PROJECT_DIR$/crnn_model/crnn_model.py" />
+        <option value="$PROJECT_DIR$/crnn-train.py" />
+        <option value="$PROJECT_DIR$/requirements.txt" />
+        <option value="$PROJECT_DIR$/icdar.py" />
+        <option value="$PROJECT_DIR$/global_configuration/config.py" />
+        <option value="$PROJECT_DIR$/pretrained/shadownet/checkpoint" />
+        <option value="$PROJECT_DIR$/models/crnn/crnn_model.py" />
+        <option value="$PROJECT_DIR$/extract.py" />
+        <option value="$PROJECT_DIR$/configuration/config.py" />
       </list>
     </option>
   </component>
@@ -83,14 +244,11 @@
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
   </component>
-  <component name="NodePackageJsonFileManager">
-    <packageJsonPaths />
-  </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="196" />
-    <option name="y" value="128" />
-    <option name="width" value="2161" />
-    <option name="height" value="1288" />
+    <option name="x" value="1220" />
+    <option name="y" value="31" />
+    <option name="width" value="2073" />
+    <option name="height" value="1272" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
@@ -101,19 +259,18 @@
         <subPane>
           <expand>
             <path>
-              <item name="EAST+RCNN" type="b2602c69:ProjectViewProjectNode" />
-              <item name="EAST+RCNN" type="462c0819:PsiDirectoryNode" />
+              <item name="east-crnn" type="b2602c69:ProjectViewProjectNode" />
+              <item name="east-crnn" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="EAST+RCNN" type="b2602c69:ProjectViewProjectNode" />
-              <item name="EAST+RCNN" type="462c0819:PsiDirectoryNode" />
-              <item name="data" type="462c0819:PsiDirectoryNode" />
+              <item name="east-crnn" type="b2602c69:ProjectViewProjectNode" />
+              <item name="east-crnn" type="462c0819:PsiDirectoryNode" />
+              <item name="configuration" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="EAST+RCNN" type="b2602c69:ProjectViewProjectNode" />
-              <item name="EAST+RCNN" type="462c0819:PsiDirectoryNode" />
-              <item name="data" type="462c0819:PsiDirectoryNode" />
-              <item name="char_dict" type="462c0819:PsiDirectoryNode" />
+              <item name="east-crnn" type="b2602c69:ProjectViewProjectNode" />
+              <item name="east-crnn" type="462c0819:PsiDirectoryNode" />
+              <item name="pretrained" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -130,6 +287,9 @@
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/tools" />
+      <recent name="$PROJECT_DIR$/models/east" />
+      <recent name="$PROJECT_DIR$/models" />
       <recent name="$PROJECT_DIR$/pretrained/east" />
     </key>
   </component>
@@ -164,6 +324,9 @@
       <option name="SHOW_COMMAND_LINE" value="true" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
     </configuration>
     <configuration default="true" type="PythonConfigurationType" factoryName="Python">
       <module name="EAST+RCNN" />
@@ -183,6 +346,9 @@
       <option name="SHOW_COMMAND_LINE" value="true" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
     </configuration>
     <configuration name="EAST+RCNN" type="Python.FlaskServer" factoryName="Flask server">
       <option name="additionalOptions" value="" />
@@ -203,6 +369,7 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="launchJavascriptDebuger" value="false" />
+      <method v="2" />
     </configuration>
     <list>
       <item itemvalue="Flask server.EAST+RCNN" />
@@ -220,34 +387,50 @@
       <option name="presentableId" value="Default" />
       <updated>1532377337481</updated>
     </task>
+    <task id="LOCAL-00001" summary="Added additional layer to CRNN.">
+      <created>1538988429720</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1538988429720</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Undid latest change.">
+      <created>1538989128029</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1538989128029</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="196" y="128" width="2161" height="1288" extended-state="0" />
+    <frame x="1220" y="31" width="2073" height="1272" extended-state="0" />
+    <editor active="true" />
     <layout>
-      <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
-      <window_info anchor="right" x="0" y="0" width="490" height="1088" id="Documentation" order="5" sideWeight="0.5004198" side_tool="true" visible="true" weight="0.03964134" />
-      <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Version Control" order="7" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Python Console" order="7" weight="0.19688109" />
-      <window_info anchor="bottom" id="Run" order="2" />
-      <window_info anchor="bottom" id="Terminal" order="7" weight="0.3299748" />
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.26805097" />
-      <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
-      <window_info anchor="right" id="Database" order="3" />
-      <window_info anchor="right" id="SciView" order="4" sideWeight="0.49958017" visible="true" weight="0.03964134" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.3165928" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.329661" />
+      <window_info anchor="bottom" id="Run" order="2" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.3299748" />
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Version Control" order="8" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Database Changes" order="9" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Terminal" order="10" sideWeight="0.49679962" weight="0.329661" />
+      <window_info anchor="bottom" id="Event Log" order="11" sideWeight="0.5032004" side_tool="true" weight="0.0" />
+      <window_info anchor="bottom" id="Concurrent Activities Diagram" order="12" weight="0.3299748" />
+      <window_info anchor="bottom" id="Python Console" order="13" weight="0.19661017" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
-      <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Concurrent Activities Diagram" order="7" weight="0.3299748" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="Database" order="3" />
+      <window_info anchor="right" id="SciView" order="4" sideWeight="0.49958017" visible="true" weight="0.04086657" />
+      <window_info anchor="right" x="0" y="0" width="490" height="1088" id="Documentation" order="5" sideWeight="0.5004198" side_tool="true" visible="true" weight="0.03964134" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -255,6 +438,11 @@
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Added additional layer to CRNN." />
+    <MESSAGE value="Undid latest change." />
+    <option name="LAST_COMMIT_MESSAGE" value="Undid latest change." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -265,7 +453,6 @@
           </properties>
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="64" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="Python.FlaskServer">
@@ -323,147 +510,11 @@
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/run_demo_server.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2475">
-          <caret line="176" selection-start-line="176" selection-end-line="176" selection-end-column="15" />
-          <folding>
-            <element signature="e#24#33#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/local_utils/establish_char_dict.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="840">
-          <caret line="58" selection-start-line="58" selection-end-line="58" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/local_utils/data_utils.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="25" selection-start-line="25" selection-end-line="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/global_configuration/__init__.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/global_configuration/config.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/generate-test-data.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="7" column="179" selection-start-line="7" selection-start-column="179" selection-end-line="7" selection-end-column="179" />
-          <folding>
-            <element signature="e#0#15#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/run_demo_server.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3705">
-          <caret line="258" selection-start-line="258" selection-end-line="258" />
-          <folding>
-            <element signature="e#24#33#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/local_utils/establish_char_dict.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="840">
-          <caret line="58" selection-start-line="58" selection-end-line="58" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/local_utils/data_utils.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="25" selection-start-line="25" selection-end-line="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/global_configuration/__init__.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/global_configuration/config.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/run_demo_server.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3375">
-          <caret line="236" column="49" selection-start-line="236" selection-start-column="49" selection-end-line="236" selection-end-column="49" />
-          <folding>
-            <element signature="e#24#33#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/local_utils/establish_char_dict.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="840">
-          <caret line="58" selection-start-line="58" selection-end-line="58" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/local_utils/data_utils.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="25" selection-start-line="25" selection-end-line="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/global_configuration/__init__.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/global_configuration/config.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/run_demo_server.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3435">
-          <caret line="240" selection-start-line="240" selection-end-line="240" />
-          <folding>
-            <element signature="e#24#33#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/local_utils/establish_char_dict.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="840">
-          <caret line="58" selection-start-line="58" selection-end-line="58" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/local_utils/data_utils.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="25" selection-start-line="25" selection-end-line="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/global_configuration/__init__.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/global_configuration/config.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file:///usr/local/lib/python3.6/site-packages/click/_unicodefun.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="486">
-          <caret line="117" selection-start-line="117" selection-end-line="117" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file:///usr/local/lib/python3.6/site-packages/click/_unicodefun.py" />
     <entry file="file://$PROJECT_DIR$/data/char_dict/ord_map.json">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/local_utils/establish_char_dict.py">
+    <entry file="file://$PROJECT_DIR$/utils/establish_char_dict.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="251">
           <caret line="58" selection-start-line="58" selection-end-line="58" />
@@ -475,26 +526,58 @@
         <state relative-caret-position="-7544" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/local_utils/data_utils.py">
+    <entry file="file://$PROJECT_DIR$/configuration/__init__.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/generate-test-data.py" />
+    <entry file="file://$PROJECT_DIR$/utils/config_utils.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="250">
-          <caret line="160" selection-start-line="160" selection-end-line="160" />
+        <state relative-caret-position="30">
+          <caret line="5" column="4" selection-start-line="5" selection-start-column="4" selection-end-line="5" selection-end-column="4" />
+          <folding>
+            <element signature="e#0#16#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/global_configuration/__init__.py">
+    <entry file="file://$PROJECT_DIR$/utils/log_utils.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="25" column="35" lean-forward="true" selection-start-line="25" selection-start-column="35" selection-end-line="25" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1035">
+          <caret line="69" column="18" lean-forward="true" selection-start-line="69" selection-start-column="18" selection-end-line="69" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/utils/data_utils.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4005">
+          <caret line="276" selection-start-line="276" selection-end-line="276" />
+          <folding>
+            <element signature="e#289#313#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/models/crnn/__init__.py">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/global_configuration/config.py">
-      <provider selected="true" editor-type-id="text-editor" />
+    <entry file="file://$PROJECT_DIR$/models/crnn/cnn_basenet.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="525">
+          <caret line="35" column="10" selection-start-line="35" selection-start-column="9" selection-end-line="35" selection-end-column="10" />
+          <folding>
+            <element signature="e#283#306#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/icdar.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/data_util.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/model.py">
+    <entry file="file://$PROJECT_DIR$/models/east/model.py">
       <provider selected="true" editor-type-id="text-editor">
         <state>
           <folding>
@@ -503,23 +586,148 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/models/resnet/resnet_v1.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/models/resnet/resnet_utils.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="720">
+          <caret line="48" column="18" selection-start-line="48" selection-start-column="18" selection-end-line="48" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/LICENSE">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pretrained/east/checkpoint">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pretrained/shadownet/checkpoint">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="25" selection-start-column="25" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/models/crnn/crnn_model.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1476">
+          <caret line="15" column="16" selection-start-line="15" selection-start-column="16" selection-end-line="15" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/eval.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <element signature="e#0#10#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/icdar.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="5" column="9" selection-start-line="5" selection-start-column="9" selection-end-line="5" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/data_util.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/logs/shadownet.log">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/crnn-generate-data.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="8" column="12" lean-forward="true" selection-start-line="8" selection-start-column="12" selection-end-line="8" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/crnn-test.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="14" column="17" selection-start-line="14" selection-start-column="7" selection-end-line="14" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/extract.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="680">
+          <caret line="217" column="26" selection-start-line="217" selection-start-column="26" selection-end-line="217" selection-end-column="26" />
+          <folding>
+            <element signature="e#231#240#0" expanded="true" />
+            <marker date="1539247997216" expanded="true" signature="6138:7579" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/models/__init__.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tools/__init__.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/crnn-train.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2250">
+          <caret line="150" column="28" selection-end-line="153" selection-end-column="17" />
+          <folding>
+            <element signature="e#231#240#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/readme.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor />
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/requirements.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="8" column="18" selection-start-line="8" selection-start-column="18" selection-end-line="8" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/run_demo_server.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="586">
-          <caret line="176" selection-start-line="176" selection-end-line="176" selection-end-column="15" />
+        <state relative-caret-position="674">
+          <caret line="250" column="24" lean-forward="true" selection-start-line="250" selection-start-column="24" selection-end-line="250" selection-end-column="24" />
           <folding>
             <element signature="e#24#33#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/generate-test-data.py">
+    <entry file="file://$PROJECT_DIR$/multigpu_train.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="21" selection-start-line="21" selection-end-line="21" />
+        <state relative-caret-position="15">
+          <caret line="45" column="20" selection-start-line="45" selection-start-column="20" selection-end-line="45" selection-end-column="20" />
           <folding>
-            <element signature="e#0#15#0" expanded="true" />
+            <element signature="e#0#11#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/locality_aware_nms.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="345">
+          <caret line="23" column="27" selection-start-line="23" selection-start-column="27" selection-end-line="23" selection-end-column="27" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/configuration/config.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="975">
+          <caret line="68" column="48" selection-start-line="68" selection-start-column="48" selection-end-line="68" selection-end-column="48" />
         </state>
       </provider>
     </entry>

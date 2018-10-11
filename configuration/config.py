@@ -18,7 +18,7 @@ cfg = __C
 __C.ARCH = edict()
 
 # Number of units in each LSTM cell
-__C.ARCH.HIDDEN_UNITS = 256
+__C.ARCH.HIDDEN_UNITS = 384
 # Number of stacked LSTM cells
 __C.ARCH.HIDDEN_LAYERS = 2
 # Sequence length.  This has to be the width of the final feature map of the CNN, which is input size width / 4

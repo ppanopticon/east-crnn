@@ -5,7 +5,7 @@ from tensorflow.contrib import slim
 
 tf.app.flags.DEFINE_integer('text_scale', 512, '')
 
-from nets import resnet_v1
+from models.resnet import resnet_v1
 
 FLAGS = tf.app.flags.FLAGS
 

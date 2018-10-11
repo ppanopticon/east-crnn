@@ -14,7 +14,7 @@ tf.app.flags.DEFINE_string('checkpoint_path', '/tmp/east_icdar2015_resnet_v1_50_
 tf.app.flags.DEFINE_string('output_dir', '/tmp/ch4_test_images/images/', '')
 tf.app.flags.DEFINE_bool('no_write_images', False, 'do not write images')
 
-import model
+from models.east import model
 from icdar import restore_rectangle
 
 FLAGS = tf.app.flags.FLAGS

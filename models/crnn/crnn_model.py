@@ -3,7 +3,7 @@
 # @Time    : 17-9-21 下午6:39
 # @Author  : Luo Yao
 # @Site    : http://github.com/TJCVRS
-# @File    : crnn_model.py
+# @File    : crnn.py
 # @IDE: PyCharm Community Edition
 """
 Implement the crnn model mentioned in An End-to-End Trainable Neural Network for Image-based Sequence
@@ -13,7 +13,7 @@ from typing import Tuple
 import tensorflow as tf
 from tensorflow.contrib import rnn
 
-from crnn_model import cnn_basenet
+from models.crnn import cnn_basenet
 
 
 class ShadowNet(cnn_basenet.CNNBaseModel):

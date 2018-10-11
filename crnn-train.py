@@ -15,11 +15,11 @@ import time
 import numpy as np
 import argparse
 
-from crnn_model import crnn_model
+from models.crnn import crnn_model
 
-from local_utils import data_utils, log_utils
-from local_utils.config_utils import load_config
-from local_utils.log_utils import compute_accuracy
+from utils import data_utils, log_utils
+from utils.config_utils import load_config
+from utils.log_utils import compute_accuracy
 
 logger = log_utils.init_logger()
 
@@ -51,7 +51,7 @@ def train_shadownet(dataset_dir, weights_path=None, decode: bool=False, num_thre
     input_images, input_labels, input_image_names = decoder.read_features(ops.join(dataset_dir, 'train_feature.tfrecords'), cfg.TRAIN.BATCH_SIZE, num_threads)
 
     # initialise the net model
-    shadownet = crnn_model.ShadowNet(phase='Train', hidden_nums=cfg.ARCH.HIDDEN_UNITS, layers_nums=cfg.ARCH.HIDDEN_LAYERS, num_classes=len(decoder.char_dict)+1)
+    shadownet = crnn_model.ShadowNet(phase='Train', hidden_nums=cfg.ARCH.HIDDEN_UNITS, layers_nums=cfg.ARCH.HIDDEN_LAYERS, num_classes=len(decoder.char_dict) + 1)
 
     with tf.variable_scope('shadow', reuse=False):
         net_out = shadownet.build_shadownet(inputdata=input_images)

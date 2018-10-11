@@ -18,10 +18,10 @@ import argparse
 import numpy as np
 import math
 
-from local_utils import data_utils
-from local_utils.config_utils import load_config
-from local_utils.log_utils import compute_accuracy
-from crnn_model import crnn_model
+from utils import data_utils
+from utils.config_utils import load_config
+from utils.log_utils import compute_accuracy
+from models.crnn import crnn_model
 from easydict import EasyDict
 
 

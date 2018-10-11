@@ -7,8 +7,8 @@ import tensorflow as tf
 import sys
 
 from unidecode import unidecode
-from local_utils import establish_char_dict
-from local_utils.config_utils import load_config
+from utils import establish_char_dict
+from utils.config_utils import load_config
 
 char_dict_path=ops.join(os.getcwd(), 'data/char_dict/char_dict.json')
 ord_map_dict_path=ops.join(os.getcwd(), 'data/char_dict/ord_map.json')
