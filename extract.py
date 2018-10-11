@@ -165,11 +165,6 @@ def get_east(checkpoint_path):
 
 
 def extract(extraction_dir: str):
-
-    # Load relevant models
-    infer_boxes = get_east(cfg.PATH.EAST_MODEL_SAVE_DIR)
-    infer_text = get_crnn(cfg.PATH.CRNN_MODEL_SAVE_DIR)
-
     # Some statistics
     count = 0
     crnn_duration = 0
@@ -185,7 +180,7 @@ def extract(extraction_dir: str):
 
                 # Infer bounding boxes
                 start = time.time()
-                boxes = infer_boxes(img)
+                boxes = get_east(cfg.PATH.EAST_MODEL_SAVE_DIR)(img)
                 east_duration += time.time() - start
 
                 for line in boxes["text_lines"]:
@@ -197,7 +192,7 @@ def extract(extraction_dir: str):
 
                     # Infer text
                     start = time.time()
-                    line["text"] = infer_text(cropped_img)[0]
+                    line["text"] = get_crnn(cfg.PATH.CRNN_MODEL_SAVE_DIR)(cropped_img)[0]
                     crnn_duration += time.time() - start
 
                 count += 1
