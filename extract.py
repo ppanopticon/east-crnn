@@ -79,7 +79,7 @@ def get_east(checkpoint_path):
         input_images = tf.placeholder(tf.float32, shape=[None, None, None, 3], name='input_images')
         global_step = tf.get_variable('global_step', [], initializer=tf.constant_initializer(0), trainable=False)
 
-        f_score, f_geometry = model.model(input_images, is_training=False)
+        f_score, f_geometry = model.model(cfg, input_images, is_training=False)
 
         variable_averages = tf.train.ExponentialMovingAverage(0.997, global_step)
         saver = tf.train.Saver(variable_averages.variables_to_restore())
@@ -165,6 +165,11 @@ def get_east(checkpoint_path):
 
 
 def extract(extraction_dir: str):
+
+    # Load relevant models
+    infer_boxes = get_east(cfg.PATH.EAST_MODEL_SAVE_DIR)
+    infer_text = get_crnn(cfg.PATH.CRNN_MODEL_SAVE_DIR)
+
     # Some statistics
     count = 0
     crnn_duration = 0
@@ -180,7 +185,7 @@ def extract(extraction_dir: str):
 
                 # Infer bounding boxes
                 start = time.time()
-                boxes = get_east(cfg.PATH.EAST_MODEL_SAVE_DIR)(img)
+                boxes = infer_boxes(img)
                 east_duration += time.time() - start
 
                 for line in boxes["text_lines"]:
@@ -192,7 +197,7 @@ def extract(extraction_dir: str):
 
                     # Infer text
                     start = time.time()
-                    line["text"] = get_crnn(cfg.PATH.CRNN_MODEL_SAVE_DIR)(cropped_img)[0]
+                    line["text"] = infer_text(cropped_img)[0]
                     crnn_duration += time.time() - start
 
                 count += 1
