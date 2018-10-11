@@ -17,9 +17,8 @@ from utils.config_utils import load_config
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
 
-# Location of checkpoints
-east_checkpoint_path = './pretrained/east'
-crrn_checkpoint_path = './pretrained/shadownet'
+# Read configuration for width/height
+cfg = load_config().cfg
 
 @functools.lru_cache(maxsize=1)
 def get_host_info():
@@ -34,7 +33,6 @@ def get_crnn(checkpoint_path):
     from utils import data_utils
 
     # Read configuration for width/height
-    cfg = load_config().cfg
     w, h = cfg.ARCH.INPUT_SIZE
 
     # Determine the number of classes.
@@ -232,7 +230,7 @@ def index_post():
     bio = io.BytesIO()
     request.files['image'].save(bio)
     img = cv2.imdecode(np.frombuffer(bio.getvalue(), dtype='uint8'), 1)
-    rst = get_predictor(east_checkpoint_path)(img)
+    rst = get_predictor(cfg.PATH.EAST_MODEL_SAVE_DIR)(img)
 
     for line in rst["text_lines"]:
         xt = int(min(line["x0"], line["x2"])) - 1
@@ -240,7 +238,7 @@ def index_post():
         xb = int(max(line["x1"], line["x3"])) + 1
         yb = int(max(line["y1"], line["y3"])) + 1
         cropped = img[yt:yb, xt:xb]
-        line["text"] = get_crnn(crrn_checkpoint_path)(cropped)[0]
+        line["text"] = get_crnn(cfg.PATH.CRNN_MODEL_SAVE_DIR)(cropped)[0]
 
     save_result(img, rst)
     return render_template('index.html', session_id=rst['session_id'])

@@ -29,17 +29,14 @@ from utils.config_utils import load_config
 
 logger = log_utils.init_logger()
 
-
-# Location of checkpoints
-east_checkpoint_path = './pretrained/east'
-crrn_checkpoint_path = './pretrained/shadownet'
+# Read configuration for width/height
+cfg = load_config().cfg
 
 @functools.lru_cache(maxsize=100)
 def get_crnn(checkpoint_path):
     logger.info('Loading CRNN model...')
 
-    # Read configuration for width/height
-    cfg = load_config().cfg
+    # Read width / height
     w, h = cfg.ARCH.INPUT_SIZE
 
     # Determine the number of classes.
@@ -170,8 +167,8 @@ def get_east(checkpoint_path):
 def extract(extraction_dir: str):
 
     # Load relevant models
-    infer_boxes = get_east(east_checkpoint_path)
-    infer_text = get_crnn(crrn_checkpoint_path)
+    infer_boxes = get_east(cfg.PATH.EAST_MODEL_SAVE_DIR)
+    infer_text = get_crnn(cfg.PATH.CRNN_MODEL_SAVE_DIR)
 
     # Some statistics
     count = 0
@@ -188,7 +185,7 @@ def extract(extraction_dir: str):
 
                 # Infer bounding boxes
                 start = time.time()
-                boxes = infer_boxes(east_checkpoint_path)(img)
+                boxes = infer_boxes(img)
                 east_duration += time.time() - start
 
                 for line in boxes["text_lines"]:
@@ -200,7 +197,7 @@ def extract(extraction_dir: str):
 
                     # Infer text
                     start = time.time()
-                    line["text"] = infer_text(crrn_checkpoint_path)(cropped_img)[0]
+                    line["text"] = infer_text(cropped_img)[0]
                     crnn_duration += time.time() - start
 
                 count += 1

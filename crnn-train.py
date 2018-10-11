@@ -89,7 +89,7 @@ def train_shadownet(dataset_dir, weights_path=None, decode: bool=False, num_thre
 
     # Set saver configuration
     saver = tf.train.Saver()
-    model_save_dir = 'pretrained/shadownet'
+    model_save_dir = cfg.PATH.CRNN_MODEL_SAVE_DIR
     if not ops.exists(model_save_dir):
         os.makedirs(model_save_dir)
     train_start_time = time.strftime('%Y-%m-%d-%H-%M-%S', time.localtime(time.time()))

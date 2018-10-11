@@ -64,12 +64,11 @@ __C.TEST.BATCH_SIZE = 32
 
 # Path config
 __C.PATH = edict()
-
 # Path to save the model checkpoints
-__C.PATH.MODEL_SAVE_DIR = 'pretrained/shadownet'
-# Path to save log for tensorboard
+__C.PATH.CRNN_MODEL_SAVE_DIR = 'pretrained/shadownet'
+# Path to save the model checkpoints
+__C.PATH.EAST_MODEL_SAVE_DIR = 'pretrained/east'
+# Path to save log for tensorboard (CRNN)
 __C.PATH.TBOARD_SAVE_DIR = 'tboard/shadownet'
 # Path to character dictionaries
 __C.PATH.CHAR_DICT_DIR = 'data/char_dict'
-# Path to tfrecords
-__C.PATH.TFRECORDS_DIR = 'data'
