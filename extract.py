@@ -182,7 +182,7 @@ def extract(extraction_dir: str):
         # Iterate over files
         for filename in files:
             if (filename.endswith(('.jpg','.jpeg','.png','.tiff','.tif','bmp'))):
-                print('Processing {}'.format(os.path.join(root,filename)))
+                logger.info('Processing {}'.format(os.path.join(root,filename)))
                 img = cv2.imdecode(np.fromfile(os.path.join(root,filename), dtype='uint8'), 1)
 
                 # Infer bounding boxes
@@ -211,7 +211,7 @@ def extract(extraction_dir: str):
     crnn_duration /= crnn_count
     east_duration /= east_count
 
-    print('Done! Took {:+.2f}s on average (EAST: {:+.2f}, CRNN: {:+.2f}).', (crnn_duration + east_duration)/1000, east_duration, crnn_duration)
+    logger.info('Done! Took {:+.2f}s on average (EAST: {:+.2f}, CRNN: {:+.2f}).', (crnn_duration + east_duration)/1000, east_duration, crnn_duration)
 
 
 if __name__ == '__main__':
