@@ -182,8 +182,9 @@ def extract(extraction_dir: str):
         # Iterate over files
         for filename in files:
             if (filename.endswith(('.jpg','.jpeg','.png','.tiff','.tif','bmp'))):
-                logger.info('Processing {}'.format(os.path.join(root,filename)))
-                img = cv2.imdecode(np.fromfile(os.path.join(root,filename), dtype='uint8'), 1)
+                path = os.path.join(root,filename)
+                logger.info('Processing {}'.format(path))
+                img = cv2.imdecode(np.fromfile(path, dtype='uint8'), 1)
 
                 # Infer bounding boxes
                 start = time.time()
@@ -198,6 +199,9 @@ def extract(extraction_dir: str):
                         xb = int(max(line["x1"], line["x3"])) + 1
                         yb = int(max(line["y1"], line["y3"])) + 1
                         cropped_img = img[yt:yb, xt:xb]
+                        if cropped_img.shape[0] == 0 or cropped_img.shape[1] == 0:
+                            logger.warn('Error in image {}: Nullary bounding box...'.format(path))
+                            continue
 
                         # Infer text
                         start = time.time()
