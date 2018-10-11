@@ -21,6 +21,7 @@ import collections
 
 from models.crnn import crnn_model
 from models.east import model
+from shutil import copyfile
 
 from eval import resize_image, sort_poly, detect
 
@@ -164,8 +165,7 @@ def get_east(checkpoint_path):
         return infer
 
 
-def extract(extraction_dir: str):
-
+def extract(extraction_dir: str, output: str = None, copy: bool = False):
     # Load relevant models
     infer_boxes = get_east(cfg.PATH.EAST_MODEL_SAVE_DIR)
     infer_text = get_crnn(cfg.PATH.CRNN_MODEL_SAVE_DIR)
@@ -182,9 +182,9 @@ def extract(extraction_dir: str):
         # Iterate over files
         for filename in files:
             if (filename.endswith(('.jpg','.jpeg','.png','.tiff','.tif','bmp'))):
-                path = os.path.join(root,filename)
-                logger.info('Processing {}'.format(path))
-                img = cv2.imdecode(np.fromfile(path, dtype='uint8'), 1)
+                image_path = os.path.join(root,filename)
+                logger.info('Processing {}'.format(image_path))
+                img = cv2.imdecode(np.fromfile(image_path, dtype='uint8'), 1)
 
                 # Infer bounding boxes
                 start = time.time()
@@ -209,8 +209,11 @@ def extract(extraction_dir: str):
                         crnn_duration += time.time() - start
                         crnn_count += 1
 
-                    with open(os.path.join(root, os.path.splitext(filename)[0] + ".json"), 'w') as outf:
-                        json.dump(boxes['text_lines'], outf)
+                    # Generate output
+                    if output == None:
+                        write_output(boxes["text_lines"], root, image_path, False)
+                    else:
+                        write_output(boxes["text_lines"], output, image_path, copy)
 
     crnn_duration /= crnn_count
     east_duration /= east_count
@@ -218,10 +221,22 @@ def extract(extraction_dir: str):
     logger.info('Done! Took {:+.2f}s on average (EAST: {:+.2f}, CRNN: {:+.2f}).', (crnn_duration + east_duration)/1000, east_duration, crnn_duration)
 
 
+
+
+def write_output(data, output_dir, image_path, copy = False):
+    with open(os.path.join(output_dir, os.path.splitext(image_path)[0] + ".json"), 'w') as outf:
+        json.dump(data, outf)
+    if copy:
+        copyfile(image_path, os.path.join(output_dir, os.path.basename(image_path)))
+
+
 if __name__ == '__main__':
     # Initialize arguments
     parser = argparse.ArgumentParser()
-    parser.add_argument('--extraction_dir', type=str, help='Path to dir containing images for extraction.')
+    parser.add_argument('-e', '--extraction_dir', type=str, help='Path to dir containing images for extraction.')
+    parser.add_argument('-o', '--output_dir', type=str, help='Path to directory that should hold the final output.')
+    parser.add_argument('-c', '--copy_images', type=bool, default=False, help='Only valid for -o; copies the image.')
+
     args = parser.parse_args()
 
     if not ops.exists(args.extraction_dir):
