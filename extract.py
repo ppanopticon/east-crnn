@@ -181,6 +181,7 @@ def extract(extraction_dir: str):
         # Iterate over files
         for filename in files:
             if (filename.endswith(('.jpg','.jpeg','.png','.tiff','.tif','bmp'))):
+                print('Processing {}'.format(os.path.join(root,filename)))
                 img = cv2.imdecode(np.fromfile(os.path.join(root,filename), dtype='uint8'), 1)
 
                 # Infer bounding boxes
