@@ -224,10 +224,10 @@ def extract(extraction_dir: str, output: str = None, copy: bool = False):
 
 
 def write_output(data, output_dir, image_path, copy = False):
-    with open(os.path.join(output_dir, os.path.splitext(image_path)[0] + ".json"), 'w') as outf:
+    with open(os.path.join(output_dir, os.path.splitext(os.path.basename(image_path))[0] + ".json"), 'w') as outf:
         json.dump(data, outf)
-    if copy:
-        copyfile(image_path, os.path.join(output_dir, os.path.basename(image_path)))
+        if copy:
+            copyfile(image_path, os.path.join(output_dir, os.path.basename(image_path)))
 
 
 if __name__ == '__main__':
