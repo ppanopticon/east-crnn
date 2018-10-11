@@ -171,7 +171,8 @@ def extract(extraction_dir: str):
     infer_text = get_crnn(cfg.PATH.CRNN_MODEL_SAVE_DIR)
 
     # Some statistics
-    count = 0
+    east_count = 0
+    crnn_count = 0
     crnn_duration = 0
     east_duration = 0
 
@@ -188,26 +189,27 @@ def extract(extraction_dir: str):
                 start = time.time()
                 boxes = infer_boxes(img)
                 east_duration += time.time() - start
+                east_count += 1
 
-                for line in boxes["text_lines"]:
-                    xt = int(min(line["x0"], line["x2"])) - 1
-                    yt = int(min(line["y0"], line["y2"])) - 1
-                    xb = int(max(line["x1"], line["x3"])) + 1
-                    yb = int(max(line["y1"], line["y3"])) + 1
-                    cropped_img = img[yt:yb, xt:xb]
+                if len(boxes["text_lines"]) > 0:
+                    for line in boxes["text_lines"]:
+                        xt = int(min(line["x0"], line["x2"])) - 1
+                        yt = int(min(line["y0"], line["y2"])) - 1
+                        xb = int(max(line["x1"], line["x3"])) + 1
+                        yb = int(max(line["y1"], line["y3"])) + 1
+                        cropped_img = img[yt:yb, xt:xb]
 
-                    # Infer text
-                    start = time.time()
-                    line["text"] = infer_text(cropped_img)[0]
-                    crnn_duration += time.time() - start
+                        # Infer text
+                        start = time.time()
+                        line["text"] = infer_text(cropped_img)[0]
+                        crnn_duration += time.time() - start
+                        crnn_count += 1
 
-                count += 1
+                    with open(os.path.join(root, os.path.splitext(filename)[0] + ".json"), 'w') as outf:
+                        json.dump(boxes['text_lines'], outf)
 
-                with open(os.path.join(root, os.path.splitext(filename)[0] + ".json"), 'w') as outf:
-                    json.dump(boxes['text_lines'],outf)
-
-    crnn_duration /= count
-    east_duration /= count
+    crnn_duration /= crnn_count
+    east_duration /= east_count
 
     print('Done! Took {:+.2f}s on average (EAST: {:+.2f}, CRNN: {:+.2f}).', (crnn_duration + east_duration)/1000, east_duration, crnn_duration)
 
