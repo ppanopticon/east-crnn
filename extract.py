@@ -218,7 +218,7 @@ def extract(extraction_dir: str, output: str = None, copy: bool = False):
     crnn_duration /= crnn_count
     east_duration /= east_count
 
-    logger.info('Done! Took {:+.2f}s on average (EAST: {:+.2f}, CRNN: {:+.2f}).', (crnn_duration + east_duration)/1000, east_duration, crnn_duration)
+    logger.info('Done! Took {:.2f}s on average (EAST: {:.2f}s, CRNN: {:.2f}s).'.format((crnn_duration + east_duration), east_duration, crnn_duration))
 
 
 
