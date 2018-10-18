@@ -187,33 +187,34 @@ def extract(extraction_dir: str, output: str = None, copy: bool = False):
                 img = cv2.imdecode(np.fromfile(image_path, dtype='uint8'), 1)
 
                 # Infer bounding boxes
-                start = time.time()
-                boxes = infer_boxes(img)
-                east_duration += time.time() - start
-                east_count += 1
+                if img is not None:
+                    start = time.time()
+                    boxes = infer_boxes(img)
+                    east_duration += time.time() - start
+                    east_count += 1
 
-                if len(boxes["text_lines"]) > 0:
-                    for line in boxes["text_lines"]:
-                        xt = int(min(line["x0"], line["x2"])) - 1
-                        yt = int(min(line["y0"], line["y2"])) - 1
-                        xb = int(max(line["x1"], line["x3"])) + 1
-                        yb = int(max(line["y1"], line["y3"])) + 1
-                        cropped_img = img[yt:yb, xt:xb]
-                        if cropped_img.shape[0] == 0 or cropped_img.shape[1] == 0:
-                            logger.warn('Error in image {}: Nullary bounding box...'.format(image_path))
-                            continue
+                    if len(boxes["text_lines"]) > 0:
+                        for line in boxes["text_lines"]:
+                            xt = int(min(line["x0"], line["x2"])) - 1
+                            yt = int(min(line["y0"], line["y2"])) - 1
+                            xb = int(max(line["x1"], line["x3"])) + 1
+                            yb = int(max(line["y1"], line["y3"])) + 1
+                            cropped_img = img[yt:yb, xt:xb]
+                            if cropped_img.shape[0] == 0 or cropped_img.shape[1] == 0:
+                                logger.warn('Error in image {}: Nullary bounding box...'.format(image_path))
+                                continue
 
-                        # Infer text
-                        start = time.time()
-                        line["text"] = infer_text(cropped_img)[0]
-                        crnn_duration += time.time() - start
-                        crnn_count += 1
+                            # Infer text
+                            start = time.time()
+                            line["text"] = infer_text(cropped_img)[0]
+                            crnn_duration += time.time() - start
+                            crnn_count += 1
 
-                    # Generate output
-                    if output is None:
-                        write_output(boxes["text_lines"], root, image_path, False)
-                    else:
-                        write_output(boxes["text_lines"], output, image_path, copy)
+                        # Generate output
+                        if output is None:
+                            write_output(boxes["text_lines"], root, image_path, False)
+                        else:
+                            write_output(boxes["text_lines"], output, image_path, copy)
 
     crnn_duration /= crnn_count
     east_duration /= east_count
